@@ -89,3 +89,6 @@ Este proyecto corresponde al **Laboratorio de Aplicaciones Web Cliente**. Se tra
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/tu-usuario/proyecto-ecommerce.git
+
+2. Acceder directamente al enlace de GitHub Pages:
+   [GitHub Pages: Proyecto Web: E-commerce](https://juancruzf.github.io/Proyecto-web-E-commerce/)
