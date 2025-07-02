@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - E-commerce Premium</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.1/sweetalert2.all.min.js"></script>
+    
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#" aria-label="TechStore - Página principal">
+                    <i class="bi bi-shop"></i> TechStore
+                </a>
+                
+                <button class="cart-btn d-lg-none" id="cartBtnMobile" aria-label="Abrir carrito de compras">
+                    <i class="bi bi-cart3"></i>
+                    <span class="cart-badge" id="cartBadgeMobile">0</span>
+                </button>
+                
+                <div class="d-none d-lg-block">
+                     <button class="cart-btn" id="cartBtn" aria-label="Abrir carrito de compras">
+                        <i class="bi bi-cart3"></i>
+                        Carrito
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-section" role="banner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1>Tu Tienda Online Favorita</h1>
+                        <p>Descubre una increíble selección de productos: electrónicos, moda, joyería y mucho más. Todo en un solo lugar con los mejores precios.</p>
+                        <div class="hero-features mb-4">
+                            <div class="row">
+                                <div class="col-6 col-md-3 text-center mb-3 mb-md-0"><i class="bi bi-laptop" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i><small>Electrónicos</small></div>
+                                <div class="col-6 col-md-3 text-center mb-3 mb-md-0"><i class="bi-bag" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i><small>Moda</small></div>
+                                <div class="col-6 col-md-3 text-center"><i class="bi bi-gem" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i><small>Joyería</small></div>
+                                <div class="col-6 col-md-3 text-center"><i class="bi bi-person" style="font-size: 2rem; margin-bottom: 0.5rem; display: block;"></i><small>Caballeros</small></div>
+                            </div>
+                        </div>
+                        <a href="#productos" class="hero-btn pulse">
+                            <i class="bi bi-arrow-down"></i> Explorar Productos
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="hero-visual">
+                        <div class="hero-cards">
+                            <div class="floating-card" style="animation: float 3s ease-in-out infinite;"><i class="bi bi-bag-heart" style="font-size: 3rem; color: white;"></i></div>
+                            <div class="floating-card" style="animation: float 3s ease-in-out infinite 0.5s;"><i class="bi bi-cart-check" style="font-size: 3rem; color: white;"></i></div>
+                            <div class="floating-card" style="animation: float 3s ease-in-out infinite 1s;"><i class="bi bi-star-fill" style="font-size: 3rem; color: white;"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de productos -->
+    <main>
+        <section class="products-section" id="productos" role="main">
+            <div class="container">
+                <h2 class="section-title">Nuestros Productos</h2>
+                
+                <!-- Control para productos -->
+                <div class="product-controls">
+                    <div class="search-container">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Buscar en todos los productos..." aria-label="Buscar productos">
+                    </div>
+                    <div class="filter-container" id="filterContainer">
+                        <button class="filter-btn active" data-category="all">Todos</button>
+                        <button class="filter-btn" data-category="electronics">Electrónica</button>
+                        <button class="filter-btn" data-category="jewelery">Joyería</button>
+                        <button class="filter-btn" data-category="men's clothing">Ropa de Hombre</button>
+                        <button class="filter-btn" data-category="women's clothing">Ropa de Mujer</button>
+                    </div>
+                </div>
+                
+                <div class="loading" id="loadingSpinner">
+                    <div class="spinner"></div>
+                </div>
+                
+                <div class="row" id="productsContainer">
+                    <!-- Los productos se van a renderizar acá -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de los productos -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Detalles del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modalProductImage" class="product-modal-image" alt="Imagen del producto">
+                        </div>
+                        <div class="col-md-6 d-flex flex-column">
+                            <h3 id="modalProductTitle" class="modal-product-title"></h3>
+                            <p id="modalProductPrice" class="modal-product-price"></p>
+                            <div id="modalProductRating" class="product-rating mb-3"></div>
+                            <p id="modalProductDescription" class="modal-product-description"></p>
+                            <button class="add-to-cart-btn mt-auto" id="addToCartBtn">
+                                <i class="bi bi-cart-plus"></i> Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carrito -->
+    <div class="cart-sidebar-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar" role="complementary" aria-label="Carrito de compras">
+        <div class="cart-header">
+            <h3 class="cart-title">Mi Carrito</h3>
+            <button class="close-cart" id="closeCart" aria-label="Cerrar carrito">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <!-- Los items del carrito se van a renderizar acá -->
+        </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total">
+                Total: $<span id="cartTotal">0.00</span>
+            </div>
+            <div class="cart-actions">
+                <button class="checkout-btn" id="checkoutBtn">
+                    <i class="bi bi-credit-card"></i> Finalizar Compra
+                </button>
+                <button class="clear-cart-btn" id="clearCartBtn">
+                    <i class="bi bi-trash"></i> Vaciar Carrito
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>TechStore</h5>
+                    <p>La mejor tienda de tecnología online. Productos de calidad con garantía y envío gratuito.</p>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#">Ofertas</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-6 mb-4">
+                    <h5>Categorías</h5>
+                    <ul>
+                        <li><a href="#">Electrónica</a></li>
+                        <li><a href="#">Ropa</a></li>
+                        <li><a href="#">Joyería</a></li>
+                        <li><a href="#">Hombre</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="d-flex"><i class="bi bi-envelope me-2"></i> info@techstore.com</li>
+                        <li class="d-flex"><i class="bi bi-phone me-2"></i> +54 123 456 789</li>
+                        <li class="d-flex"><i class="bi bi-geo-alt me-2"></i> Buenos Aires, Argentina</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <a href="https://jc-dev.info" target="_blank" rel="noopener noreferrer"><p>&copy; <span id="footerYear"></span> TechStore. Todos los derechos reservados.</p></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="js/main.js" defer></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
