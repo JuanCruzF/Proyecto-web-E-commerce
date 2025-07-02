@@ -2,12 +2,10 @@
 
 Este proyecto corresponde al **Laboratorio de Aplicaciones Web Cliente**. Se trata de una aplicación web de tipo E-commerce desarrollada con tecnologías del lado del cliente, haciendo uso de HTML5, CSS3, JavaScript, Bootstrap y una API externa. La app es completamente responsive y centrada en ofrecer una experiencia de usuario coherente y accesible.
 
----
-
-### Proyecto: E-commerce
-
 **Alumno:** Juan Cruz Fucile  
-**Profesor:** Carlos Alfredo Jesú
+**Profesor:** Carlos Alfredo Jesús
+
+---
 
 ## Requisitos cumplidos
 
